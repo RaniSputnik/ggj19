@@ -2,6 +2,7 @@ R = {}
 R.fonts = {}
 
 GAME_SPEED = 10
+PADDING = 32
 
 state_speak = require('state_speak')
 
