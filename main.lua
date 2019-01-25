@@ -4,27 +4,23 @@ R.fonts = {}
 GAME_SPEED = 10
 PADDING = 32
 
-state_speak = require('state_speak')
-
-state = state_speak({ speech = 'Hello, nice to meet you!' })
-
-input = {
-    continue = false,
-    continue_pressed = false
-}
-
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")
+
+    input = require('input')()
+    state_speak = require('state_speak')
+    current_state = state_speak({ speech = 'Hello, nice to meet you!' })
 end
 
 function love.update(dt)
-    local was_continue = input.continue
-    input.continue = love.keyboard.isDown('space')
-    input.continue_pressed = not was_continue and input.continue
+    input.update()
+    current_state = current_state.update(input, dt * GAME_SPEED)
 
-    state = state.update(input, dt * GAME_SPEED)
+    if input.restart_pressed then
+        return love.load()
+    end
 end
 
 function love.draw()
-    state.draw()
+    current_state.draw()
 end
