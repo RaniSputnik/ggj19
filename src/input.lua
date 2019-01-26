@@ -4,6 +4,8 @@ return function()
         up_pressed = false,
         down = false,
         down_pressed = false,
+        left = false,
+        right = false,
         continue = false,
         continue_pressed = false,
         restart = false,
@@ -18,6 +20,8 @@ return function()
 
         input.up = love.keyboard.isDown('up')
         input.down = love.keyboard.isDown('down')
+        input.left = love.keyboard.isDown('left')
+        input.right = love.keyboard.isDown('right')
         input.continue = love.keyboard.isDown('space')
         input.restart = love.keyboard.isDown('r')
 
