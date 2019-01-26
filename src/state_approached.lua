@@ -36,6 +36,9 @@ return function(params)
         state.target:update(synthesized_input, dt)
         if state.target:facing() == world.player then
             state.wait_before_talk = state.wait_before_talk + dt
+            if state.wait_before_talk > 5 then
+                world.player:turnToFace(state.target:getPos())
+            end
             if state.wait_before_talk > 15 then
                 return state_speak({ speaker = state.target })
             end

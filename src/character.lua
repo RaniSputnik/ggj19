@@ -123,6 +123,14 @@ m.create = function(name, gridx, gridy, color, dir)
         return world.map:occupant(gx, gy)
     end
 
+    function c:turnToFace(gx, gy)
+        local cx, cy = self:getPos()
+        if gx > cx then self.direction = RIGHT
+        elseif gx < cx then self.direction = LEFT
+        elseif gy > cy then self.direction = DOWN
+        elseif gy < cy then self.direction = UP end
+    end
+
     return c
 end
 
