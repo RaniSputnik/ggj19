@@ -2,7 +2,8 @@ R = {}
 R.fonts = {}
 
 GAME_SPEED = 10
-PADDING = 32
+LAYOUT_HEARD_X = 32
+LAYOUT_HEARD_Y = 200
 
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")

@@ -28,7 +28,7 @@ return function(params)
 
     state.draw = function()
         love.graphics.setFont(R.fonts.speech)
-        love.graphics.print(state.current_speech, PADDING, 200)
+        love.graphics.print(state.current_speech, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
     end
 
     return state
