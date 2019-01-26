@@ -1,8 +1,20 @@
+RIGHT = 1
+DOWN = 2
+LEFT = 3
+UP = 4
+
 local m = {}
 
 local function clamp(x, maxval, minval)
     return math.max(math.min(x, maxval), minval)
 end
+
+local dir_offset = {
+    [RIGHT] = {1, 0},
+    [DOWN] = {0, 1},
+    [LEFT] = {-1, 0},
+    [UP] = {0, -1},
+}
 
 m.create = function(gridx, gridy, color)
     local xx, yy = map:getPos(gridx, gridy)
@@ -88,6 +100,13 @@ m.create = function(gridx, gridy, color)
         elseif self.direction == UP then
             love.graphics.rectangle("fill", self.x+10, self.y, 12, 12)
         end
+    end
+
+    function c:facing()
+        if self.moving then return nil end
+        local o = dir_offset[self.direction]
+        gx, gy = self.pos[1] + o[1], self.pos[2] + o[2]
+        return map:occupant(gx, gy)
     end
 
     return c

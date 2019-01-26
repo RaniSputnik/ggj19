@@ -39,6 +39,12 @@ function map:occupy(inst, gx, gy)
     return true
 end
 
+function map:occupant(gx, gy)
+    if not self:isValidPosition(gx,gy) then return nil end
+    local i = self:index(gx, gy)
+    return self.occupants[i]
+end
+
 function map:release(inst, gx, gy)
     if inst == nil then return false end
     if not self:isValidPosition(gx,gy) then return false end

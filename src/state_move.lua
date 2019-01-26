@@ -1,12 +1,14 @@
 -- The move state is where the player is freely moving
 
-RIGHT = 1
-DOWN = 2
-LEFT = 3
-UP = 4
-
 local player = character.create(2, 3, RED)
 local alice = character.create(1, 1, GREEN)
+
+local no_input = {
+    left = false,
+    right = false,
+    up = false,
+    down = false,
+}
 
 -- STATE
 
@@ -14,7 +16,17 @@ return function(params)
     local state = {}
 
     state.update = function(input, dt)
+        -- TODO: Loop over all characters
         player:update(input, dt)
+        alice:update(no_input, dt)
+
+        local other = player:facing()
+        if other ~= nil then
+            player.color = BLUE
+            --return state_respond({ other = other, heard = '' })
+        else
+            player.color = RED
+        end
 
         return state
     end
@@ -30,6 +42,7 @@ return function(params)
 
         love.graphics.setColor(WHITE)
         map:draw()
+         -- TODO: Loop over all characters
         player:draw()
         alice:draw()
 
