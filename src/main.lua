@@ -40,6 +40,8 @@ function love.load()
     hud_show_friendship = false
     objective_friends_count = 0
 
+    knowledge.load()
+
     dana = {
         greeting = M.q_looking_forward_to_party,
         responses = {
