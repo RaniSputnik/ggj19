@@ -1,3 +1,3 @@
 #!/bin/bash
 
-open -a love .
+open -a love src
