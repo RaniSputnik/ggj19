@@ -16,10 +16,11 @@ local dir_offset = {
     [UP] = {0, -1},
 }
 
-m.create = function(gridx, gridy, color)
+m.create = function(name, gridx, gridy, color)
     local xx, yy = map:getPos(gridx, gridy)
 
     local c = {
+        name = name,
         x = xx,
         y = yy,
         pos = { gridx, gridy },

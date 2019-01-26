@@ -48,6 +48,35 @@ function love.load()
         [M.your_right] = speak.end_conversation(),
     }
 
+    -- Create the world
+
+    local player = character.create("Player", 2, 3, RED)
+    local alice = character.create("Alice", 1, 1, GREEN)
+    world = {
+        player = player,
+        characters = { player, alice },
+    }
+
+    function world:draw()
+        local map_width = map:getWidth()
+        local map_height = map:getHeight()
+        local left = (love.graphics.getWidth() - map_width) / 2
+        local top = (love.graphics.getHeight() - map_height) / 2
+
+        love.graphics.push()
+        love.graphics.translate(left, top)
+
+        love.graphics.setColor(WHITE)
+        map:draw()
+        for i = 1, #self.characters do
+            self.characters[i]:draw()
+        end
+
+        love.graphics.pop()
+    end
+
+    -- Setup input and state
+
     input = require('input')()
     current_state = state_speak({ speaker = dana, speech = M.q_looking_forward_to_party })
 end
