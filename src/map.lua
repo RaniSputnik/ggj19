@@ -7,10 +7,27 @@ m.create = function()
         cell_width = 32,
         cell_height = 32,
         occupants = {},
+        tiles = {
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,
+            0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+            0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+            0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+            0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,
+        }
     }
 
     function map:index(gx, gy)
-        return gx + gy * self.grid_width
+        return gx + (gy-1) * self.grid_width
     end
 
     function map:getWidth()
@@ -24,6 +41,7 @@ m.create = function()
     function map:isFree(gx, gy)
         if not self:isValidPosition(gx,gy) then return false end
         local i = self:index(gx, gy)
+        if self.tiles[i] == 0 then return false end
         return self.occupants[i] == nil
     end
 
@@ -67,9 +85,11 @@ m.create = function()
             for gx = 1, self.grid_width do
                 local xx, yy = self:getPos(gx, gy)
                 local i = self:index(gx, gy)
-                local draw_mode = "line"
-                if self.occupants[i] ~= nil then draw_mode = "fill" end
-                love.graphics.rectangle(draw_mode, xx, yy, self.cell_width, self.cell_height)
+                if self.tiles[i] > 0 then
+                    local draw_mode = "line"
+                    if self.occupants[i] ~= nil then draw_mode = "fill" end
+                    love.graphics.rectangle(draw_mode, xx, yy, self.cell_width, self.cell_height)
+                end
             end
         end
     end

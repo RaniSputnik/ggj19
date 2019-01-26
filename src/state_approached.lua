@@ -20,10 +20,10 @@ return function(params)
         }
         local hor = px - tx
         local ver = py - ty
-        if hor > 0 then synthesized_input.right = true
-        elseif hor < 0 then synthesized_input.left = true
-        elseif ver > 0 then synthesized_input.down = true
+        if ver > 0 then synthesized_input.down = true
         elseif ver < 0 then synthesized_input.up = true
+        elseif hor > 0 then synthesized_input.right = true
+        elseif hor < 0 then synthesized_input.left = true
         end
 
         state.target:update(synthesized_input, dt)
