@@ -24,3 +24,9 @@ end
 function love.draw()
     current_state.draw()
 end
+
+-- DEBUGGING
+
+function love.keypressed(key, u)
+    if key == "lctrl" then debug.debug() end
+end

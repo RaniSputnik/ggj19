@@ -1,3 +1,3 @@
 #!/bin/bash
 
-open -a love src
+/Applications/love.app/Contents/MacOS/love src
