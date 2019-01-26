@@ -4,7 +4,6 @@ local WHITE = {1,1,1}
 local RED = {1,0,0}
 local BLACK = {0,0,0}
 
-
 -- PLAYER
 
 RIGHT = 1
@@ -34,24 +33,28 @@ function player:update(input, dt)
             hor, ver = 0, 0
         end
         if hor ~= 0 then
-            self.moving = true
             if hor > 0 then
                 self.direction = RIGHT
             else
                 self.direction = LEFT
             end
             local gx, gy = self.pos[1] + hor, self.pos[2]
-            if map:isFree(gx, gy) then self.goal = {gx, gy} end
+            if map:isFree(gx, gy) then
+                self.moving = true
+                self.goal = {gx, gy}
+            end
         end
         if ver ~= 0 then
-            self.moving = true
             if ver > 0 then
                 self.direction = DOWN
             else
                 self.direction = UP
             end
             local gx, gy = self.pos[1], self.pos[2] + ver
-            if map:isFree(gx, gy) then self.goal = {gx, gy} end
+            if map:isFree(gx, gy) then
+                self.moving = true
+                self.goal = {gx, gy}
+            end
         end
     end
 
