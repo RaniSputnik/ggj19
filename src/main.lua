@@ -3,18 +3,33 @@ require('math')
 R = {}
 R.fonts = {}
 
-M = require('msg')
-speak = require('speak')
-knowledge = require('knowledge')
-map = require('map')
-
-state_speak = require('state_speak')
-state_respond = require('state_respond')
-state_move = require('state_move')
+-- Game constants
 
 GAME_SPEED = 10
 LAYOUT_HEARD_X = 32
 LAYOUT_HEARD_Y = 200
+
+-- Colours
+
+WHITE = {1,1,1}
+RED = {1,0,0}
+GREEN = {0,1,0}
+BLUE = {0,0,1}
+BLACK = {0,0,0}
+
+-- Load features
+
+M = require('msg')
+speak = require('speak')
+knowledge = require('knowledge')
+map = require('map')
+character = require('character')
+
+-- Load game states
+
+state_speak = require('state_speak')
+state_respond = require('state_respond')
+state_move = require('state_move')
 
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")

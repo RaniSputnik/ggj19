@@ -13,17 +13,20 @@ function map:getHeight()
     return self.grid_height * self.cell_height
 end
 
-function map:isFree(cellx, celly)
-    if cellx < 1 or cellx > self.grid_width then return false end
-    if celly < 1 or celly > self.grid_height then return false end
+function map:isFree(gx, gy)
+    if gx < 1 or gx > self.grid_width then return false end
+    if gy < 1 or gy > self.grid_height then return false end
     return true
 end
 
+function map:getPos(gx, gy)
+    return (gx-1) * self.cell_width, (gy-1) * self.cell_height
+end
+
 function map:draw()
-    for gy = 0, self.grid_height-1 do
-        for gx = 0, self.grid_width-1 do
-            local xx = gx * self.cell_width
-            local yy = gy * self.cell_height
+    for gy = 1, self.grid_height do
+        for gx = 1, self.grid_width do
+            local xx, yy = self:getPos(gx, gy)
             love.graphics.rectangle("line", xx, yy, self.cell_width, self.cell_height)
         end
     end
