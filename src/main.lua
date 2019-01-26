@@ -19,7 +19,7 @@ BLACK = {0,0,0}
 
 -- Load features
 
-M = require('msg')
+msg = require('msg')
 speak = require('speak')
 knowledge = require('knowledge')
 map = require('map')
@@ -51,9 +51,6 @@ function love.load()
             [M.i_dont_think_so] = speak.say_friendship(),
             [M.i_dont_know_anyone] = speak.say_friendship(),
             [M.i_want_to_stay] = speak.say(M.q_it_might_be_fun),
-            [M.groan] = speak.end_conversation(),
-            [M.fine] = speak.end_conversation(),
-            [M.your_right] = speak.end_conversation(),
         }
     }
 
@@ -68,11 +65,11 @@ function love.load()
     local alice = character.create("Alice", 8, 11, GREEN, DOWN)
 
     local alice_fed_up = function()
-        alice.responses[M.silence] = speak.say(M.for_goodness_sake, END_CONVERSATION)
+        alice.responses[M.silence] = speak.say(M.for_goodness_sake)
     end
 
     local alice_last_chance = function()
-        alice.responses[M.silence] = speak.say(M.fine_suit_yourself, END_CONVERSATION)
+        alice.responses[M.silence] = speak.say(M.fine_suit_yourself)
         alice.responses[M.hi_finally_meet_you] = speak.say(M.oh_so_you_do_speak, alice_fed_up)
     end
 

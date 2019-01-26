@@ -33,10 +33,15 @@ return function(params)
             if #state.responses == 0 then
                 return state_move()
             else
-                return state_speak({
-                    speaker = state.other,
-                    heard = state.responses[state.selection]
-                })
+                local selection = state.responses[state.selection]
+                if msg.ends_conversation(selection) then
+                    return state_move()
+                else
+                    return state_speak({
+                        speaker = state.other,
+                        heard = state.responses[state.selection]
+                    })
+                end
             end
         end
 

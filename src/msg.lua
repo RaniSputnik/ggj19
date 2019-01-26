@@ -1,4 +1,4 @@
-return {
+M = {
     silence = "[Awkward silence]",
 
     -- Speaking with Dana
@@ -22,3 +22,19 @@ return {
 
     good_day = "Good day",
 }
+
+local msg = {}
+
+local conversation_killers = {
+    [M.groan] = true,
+    [M.fine] = true,
+    [M.your_right] = true,
+    [M.fine_suit_yourself] = true,
+    [M.for_goodness_sake] = true,
+}
+
+msg.ends_conversation = function(m)
+    return conversation_killers[m] ~= nil
+end
+
+return msg
