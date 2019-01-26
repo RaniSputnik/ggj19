@@ -7,6 +7,11 @@ return function(params)
         -- TODO: Loop over all characters
         world.player:update(input, dt)
 
+        local t = world:any_triggers()
+        if t ~= nil then
+            return state_approached({ target = t.character })
+        end
+
         local other = world.player:facing()
         if other ~= nil and input.talk then
             return state_respond({ other = other, heard = '' })

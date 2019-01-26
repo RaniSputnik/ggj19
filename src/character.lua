@@ -3,6 +3,13 @@ DOWN = 2
 LEFT = 3
 UP = 4
 
+local no_input = {
+    right = false,
+    down = false,
+    left = false,
+    up = false,
+}
+
 local m = {}
 
 local function clamp(x, maxval, minval)
@@ -16,7 +23,7 @@ local dir_offset = {
     [UP] = {0, -1},
 }
 
-m.create = function(name, gridx, gridy, color)
+m.create = function(name, gridx, gridy, color, dir)
     local xx, yy = map:getPos(gridx, gridy)
 
     local c = {
@@ -27,12 +34,14 @@ m.create = function(name, gridx, gridy, color)
         goal = { gridx, gridy },
         moving = false,
         color = color,
-        direction = RIGHT
+        direction = dir == nil and RIGHT or dir
     }
 
     map:occupy(c, gridx, gridy)
 
     function c:update(input, dt)
+        if input == nil then input = no_input end
+
         if not self.moving then
             local hor = (input.right and 1 or 0) - (input.left and 1 or 0)
             local ver = (input.down and 1 or 0) - (input.up and 1 or 0)
@@ -101,6 +110,10 @@ m.create = function(name, gridx, gridy, color)
         elseif self.direction == UP then
             love.graphics.rectangle("fill", self.x+10, self.y, 12, 12)
         end
+    end
+
+    function c:getPos()
+        return self.pos[1], self.pos[2]
     end
 
     function c:facing()

@@ -24,12 +24,14 @@ speak = require('speak')
 knowledge = require('knowledge')
 map = require('map')
 character = require('character')
+trigger = require('trigger')
 
 -- Load game states
 
 state_speak = require('state_speak')
 state_respond = require('state_respond')
 state_move = require('state_move')
+state_approached = require('state_approached')
 
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")
@@ -50,12 +52,23 @@ function love.load()
 
     -- Create the world
 
-    local player = character.create("Player", 2, 3, RED)
-    local alice = character.create("Alice", 1, 1, GREEN)
+    local player = character.create("Player", 8, 15, RED, UP)
+    local alice = character.create("Alice", 8, 11, GREEN, DOWN)
+    local bertrand = character.create("Bertrand", 2, 2, BLUE, RIGHT)
+
     world = {
         player = player,
-        characters = { player, alice },
+        characters = { player, alice, bertrand },
+        triggers = { trigger.create(alice, 5, 13, 11, 13) }
     }
+
+    function world:any_triggers()
+        for i = 1, #self.triggers do
+            local t = self.triggers[i]
+            if t:test() then return t end
+        end
+        return nil
+    end
 
     function world:draw()
         local map_width = map:getWidth()
