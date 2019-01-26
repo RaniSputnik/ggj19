@@ -1,7 +1,8 @@
 -- The move state is where the player is freely moving
 
-local white = {1,1,1}
-local red = {1,0,0}
+local WHITE = {1,1,1}
+local RED = {1,0,0}
+local BLACK = {0,0,0}
 
 -- MAP
 
@@ -38,13 +39,19 @@ end
 
 -- PLAYER
 
+RIGHT = 1
+DOWN = 2
+LEFT = 3
+UP = 4
+
 local player = {
     x = 0,
     y = 0,
     pos = { 1, 1 },
     goal = { 1, 1 },
     moving = false,
-    color = red,
+    color = RED,
+    direction = RIGHT
 }
 
 local function clamp(x, maxval, minval)
@@ -60,11 +67,21 @@ function player:update(input, dt)
         end
         if hor ~= 0 then
             self.moving = true
+            if hor > 0 then
+                self.direction = RIGHT
+            else
+                self.direction = LEFT
+            end
             local gx, gy = self.pos[1] + hor, self.pos[2]
             if map:isFree(gx, gy) then self.goal = {gx, gy} end
         end
         if ver ~= 0 then
             self.moving = true
+            if ver > 0 then
+                self.direction = DOWN
+            else
+                self.direction = UP
+            end
             local gx, gy = self.pos[1], self.pos[2] + ver
             if map:isFree(gx, gy) then self.goal = {gx, gy} end
         end
@@ -92,6 +109,17 @@ end
 function player:draw()
     love.graphics.setColor(self.color)
     love.graphics.rectangle("fill", self.x, self.y, 32, 32)
+
+    love.graphics.setColor(BLACK)
+    if self.direction == RIGHT then
+        love.graphics.rectangle("fill", self.x+20, self.y+10, 12, 12)
+    elseif self.direction == DOWN then
+        love.graphics.rectangle("fill", self.x+10, self.y+20, 12, 12)
+    elseif self.direction == LEFT then
+        love.graphics.rectangle("fill", self.x, self.y+10, 12, 12)
+    elseif self.direction == UP then
+        love.graphics.rectangle("fill", self.x+10, self.y, 12, 12)
+    end
 end
 
 -- STATE
@@ -114,7 +142,7 @@ return function(params)
         love.graphics.push()
         love.graphics.translate(left, top)
 
-        love.graphics.setColor(white)
+        love.graphics.setColor(WHITE)
         map:draw()
         player:draw()
 
