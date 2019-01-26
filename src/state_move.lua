@@ -20,6 +20,12 @@ function map:getHeight()
     return self.grid_height * self.cell_height
 end
 
+function map:isFree(cellx, celly)
+    if cellx < 1 or cellx > self.grid_width then return false end
+    if celly < 1 or celly > self.grid_height then return false end
+    return true
+end
+
 function map:draw()
     for gy = 0, self.grid_height-1 do
         for gx = 0, self.grid_width-1 do
@@ -35,8 +41,8 @@ end
 local player = {
     x = 0,
     y = 0,
-    pos = { 0, 0 },
-    goal = { 0, 0 },
+    pos = { 1, 1 },
+    goal = { 1, 1 },
     moving = false,
     color = red,
 }
@@ -54,18 +60,20 @@ function player:update(input, dt)
         end
         if hor ~= 0 then
             self.moving = true
-            self.goal = {self.pos[1] + hor, self.pos[2]}
+            local gx, gy = self.pos[1] + hor, self.pos[2]
+            if map:isFree(gx, gy) then self.goal = {gx, gy} end
         end
         if ver ~= 0 then
             self.moving = true
-            self.goal = {self.pos[1], self.pos[2] + ver }
+            local gx, gy = self.pos[1], self.pos[2] + ver
+            if map:isFree(gx, gy) then self.goal = {gx, gy} end
         end
     end
 
     if self.moving then
         local speed = dt * 10
-        local goal_x = self.goal[1] * map.cell_width
-        local goal_y = self.goal[2] * map.cell_height
+        local goal_x = (self.goal[1]-1) * map.cell_width
+        local goal_y = (self.goal[2]-1) * map.cell_height
         local dx = goal_x - self.x
         local dy = goal_y - self.y
 
