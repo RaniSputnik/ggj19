@@ -8,6 +8,8 @@ return function()
         right = false,
         continue = false,
         continue_pressed = false,
+        talk = false,
+        talk_pressed = false,
         restart = false,
         restart_pressed = false
     }
@@ -29,6 +31,10 @@ return function()
         input.down_pressed = not was_down and input.down
         input.continue_pressed = not was_continue and input.continue
         input.restart_pressed = not was_restart and input.restart
+
+        -- Aliases
+        input.talk = input.continue
+        input.talk_pressed = input.continue_pressed
     end
 
     return input

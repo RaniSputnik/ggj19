@@ -21,11 +21,8 @@ return function(params)
         alice:update(no_input, dt)
 
         local other = player:facing()
-        if other ~= nil then
-            player.color = BLUE
-            --return state_respond({ other = other, heard = '' })
-        else
-            player.color = RED
+        if other ~= nil and input.talk then
+            return state_respond({ other = other, heard = '' })
         end
 
         return state
