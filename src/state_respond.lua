@@ -19,6 +19,10 @@ return function(params)
         selection = 1
     }
 
+    if params.prevent_response then
+        state.responses = {}
+    end
+
     local texts = {}
     for i = 1, #state.responses do
         texts[i] = love.graphics.newText(R.fonts.speech, state.responses[i])
@@ -26,10 +30,14 @@ return function(params)
 
     state.update = function(input, dt)
         if input.continue_pressed then
-            return state_speak({
-                speaker = state.other,
-                heard = state.responses[state.selection]
-            })
+            if #state.responses == 0 then
+                return state_move()
+            else
+                return state_speak({
+                    speaker = state.other,
+                    heard = state.responses[state.selection]
+                })
+            end
         end
 
         local net = (input.down_pressed and 1 or 0) - (input.up_pressed and 1 or 0)

@@ -41,19 +41,33 @@ function love.load()
     objective_friends_count = 0
 
     dana = {
-        [M.not_really] = speak.say_friendship(),
-        [M.i_dont_think_so] = speak.say_friendship(),
-        [M.i_dont_know_anyone] = speak.say_friendship(),
-        [M.i_want_to_stay] = speak.say(M.q_it_might_be_fun),
-        [M.groan] = speak.end_conversation(),
-        [M.fine] = speak.end_conversation(),
-        [M.your_right] = speak.end_conversation(),
+        greeting = M.q_looking_forward_to_party,
+        responses = {
+            [M.not_really] = speak.say_friendship(),
+            [M.i_dont_think_so] = speak.say_friendship(),
+            [M.i_dont_know_anyone] = speak.say_friendship(),
+            [M.i_want_to_stay] = speak.say(M.q_it_might_be_fun),
+            [M.groan] = speak.end_conversation(),
+            [M.fine] = speak.end_conversation(),
+            [M.your_right] = speak.end_conversation(),
+        }
     }
 
     -- Create the world
 
     local player = character.create("Player", 8, 15, RED, UP)
+
     local alice = character.create("Alice", 8, 11, GREEN, DOWN)
+
+    local alice_last_chance = function()
+        alice.responses[M.silence] = speak.say(M.fine_suit_yourself, END_CONVERSATION)
+    end
+
+    alice.greeting = M.hi_finally_meet_you
+    alice.responses = {
+        [M.silence] = speak.say(M.erm_hello_do_you_speak, alice_last_chance)
+    }
+
     local bertrand = character.create("Bertrand", 2, 2, BLUE, RIGHT)
 
     world = {
@@ -91,7 +105,7 @@ function love.load()
     -- Setup input and state
 
     input = require('input')()
-    current_state = state_speak({ speaker = dana, speech = M.q_looking_forward_to_party })
+    current_state = state_speak({ speaker = dana })
 end
 
 function love.update(dt)

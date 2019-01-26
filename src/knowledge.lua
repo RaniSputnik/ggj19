@@ -28,12 +28,7 @@ m.safe = function(heard)
 end
 
 m.recall = function(heard)
-    -- TODO: Lookup knowledge
-    return {
-        'Nice to meet you too',
-        'You seem like a wanker',
-        'Sorry, are you talking to me?'
-    }
+    return { M.silence }
 end
 
 return m

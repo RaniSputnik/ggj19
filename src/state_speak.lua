@@ -1,19 +1,20 @@
 -- The speak state is where a NPC reads their dialog
 
 return function(params)
+    local speech = params.speaker.greeting
     if params.heard ~= nil then
-        local res = params.speaker[params.heard]
+        local res = params.speaker.responses[params.heard]
         if res ~= nil then
-            params.speech, params.event = res()
+            speech, params.event = res()
         else
-            params.speech = M.silence
+            speech = M.silence
             params.event = nil
         end
     end
 
     local state = {
         speaker = params.speaker,
-        full_speech = params.speech,
+        full_speech = speech,
         event = params.event,
         current_speech = "",
         current_pos = 0
@@ -31,6 +32,13 @@ return function(params)
         -- We have already shown all of the text
         if state.current_pos >= total_speech_length then
             if state.event ~= nil then
+                if state.event == END_CONVERSATION then
+                    return state_respond({
+                        other = state.speaker,
+                        heard = state.full_speech,
+                        prevent_response = true,
+                    })
+                end
                 state.event()
             end
             return state_respond({ other = state.speaker, heard = state.full_speech })

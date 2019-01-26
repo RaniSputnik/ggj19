@@ -8,6 +8,8 @@ end
 
 -- Speaking
 
+END_CONVERSATION = '</>'
+
 m.say = function(txt, ev)
     return function()
         return txt, ev
@@ -19,7 +21,7 @@ m.say_friendship = function()
 end
 
 m.end_conversation = function()
-    return m.say('')
+    return m.say('', END_CONVERSATION)
 end
 
 return m

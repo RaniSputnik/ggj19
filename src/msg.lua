@@ -14,4 +14,7 @@ return {
     your_right = 'You\'re right',
 
     -- Possible knowledge
+    hi_finally_meet_you = "Hi, so nice to finally meet you.",
+    erm_hello_do_you_speak = "Erm, hello? Do you speak?",
+    fine_suit_yourself = "Fine, suit yourself",
 }

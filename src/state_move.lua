@@ -13,7 +13,7 @@ return function(params)
         end
 
         local other = world.player:facing()
-        if other ~= nil and input.talk then
+        if other ~= nil and input.talk_pressed then
             return state_respond({ other = other, heard = '' })
         end
 
