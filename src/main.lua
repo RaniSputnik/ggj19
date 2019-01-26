@@ -35,6 +35,7 @@ state_approached = require('state_approached')
 
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")
+    R.fonts.speech_dana = love.graphics.newFont('assets/fonts/GentiumPlus-I.ttf', 32, "normal")
     R.fonts.hud = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 18, "light")
 
     hud_show_friendship = false
@@ -43,6 +44,7 @@ function love.load()
     knowledge.load()
 
     dana = {
+        name = "Dana",
         greeting = M.q_looking_forward_to_party,
         responses = {
             [M.not_really] = speak.say_friendship(),

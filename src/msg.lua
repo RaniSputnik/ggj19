@@ -1,5 +1,5 @@
 return {
-    silence = "...",
+    silence = "[Awkward silence]",
 
     -- Speaking with Dana
     not_really = "Not really",

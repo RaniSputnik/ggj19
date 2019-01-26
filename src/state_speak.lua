@@ -60,8 +60,10 @@ return function(params)
     end
 
     state.draw = function()
-        love.graphics.setFont(R.fonts.speech)
-        love.graphics.print(state.current_speech, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
+        local font = state.speaker == dana and R.fonts.speech_dana or R.fonts.speech
+        local text = state.speaker.name .. ": " .. state.current_speech
+        love.graphics.setFont(font)
+        love.graphics.print(text, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
     end
 
     return state

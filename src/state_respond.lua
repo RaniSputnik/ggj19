@@ -49,8 +49,12 @@ return function(params)
     end
 
     state.draw = function()
-        love.graphics.setFont(R.fonts.speech)
-        love.graphics.print(state.heard, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
+        if state.heard ~= '' then
+            local font = state.other == dana and R.fonts.speech_dana or R.fonts.speech
+            local text = state.other.name .. ": " .. state.heard
+            love.graphics.setFont(font)
+            love.graphics.print(text, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
+        end
 
         local pad = 32
         local text_height = 46
