@@ -5,7 +5,7 @@ DOWN = 2
 LEFT = 3
 UP = 4
 
-local player = character.create(8, 15, RED)
+local player = character.create(2, 3, RED)
 local alice = character.create(1, 1, GREEN)
 
 -- STATE

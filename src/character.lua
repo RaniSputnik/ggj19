@@ -17,6 +17,8 @@ m.create = function(gridx, gridy, color)
         direction = RIGHT
     }
 
+    map:occupy(c, gridx, gridy)
+
     function c:update(input, dt)
         if not self.moving then
             local hor = (input.right and 1 or 0) - (input.left and 1 or 0)
@@ -34,6 +36,7 @@ m.create = function(gridx, gridy, color)
                 if map:isFree(gx, gy) then
                     self.moving = true
                     self.goal = {gx, gy}
+                    map:occupy(self, gx, gy)
                 end
             end
             if ver ~= 0 then
@@ -46,6 +49,7 @@ m.create = function(gridx, gridy, color)
                 if map:isFree(gx, gy) then
                     self.moving = true
                     self.goal = {gx, gy}
+                    map:occupy(self, gx, gy)
                 end
             end
         end
@@ -61,6 +65,7 @@ m.create = function(gridx, gridy, color)
                 self.moving = false
                 self.x = goal_x
                 self.y = goal_y
+                map:release(self, self.pos[1], self.pos[2])
                 self.pos = {self.goal[1], self.goal[2]}
             end
 
