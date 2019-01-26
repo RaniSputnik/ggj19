@@ -1,5 +1,3 @@
-local state_respond = require('state_respond')
-
 return function(params)
     local state = {
         full_speech = params.speech,

@@ -13,6 +13,10 @@ return function(params)
     end
 
     state.update = function(input, dt)
+        if input.continue_pressed then
+            return state_speak({ speech = 'Well then, that is quite something' })
+        end
+
         local net = (input.down_pressed and 1 or 0) - (input.up_pressed and 1 or 0)
         state.selection = state.selection + net
         if state.selection > #state.responses then state.selection = #state.responses end
