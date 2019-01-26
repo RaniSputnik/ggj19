@@ -13,6 +13,11 @@ return function(params)
     end
 
     state.update = function(input, dt)
+        local net = (input.down_pressed and 1 or 0) - (input.up_pressed and 1 or 0)
+        state.selection = state.selection + net
+        if state.selection > #state.responses then state.selection = #state.responses end
+        if state.selection < 1 then state.selection = 1 end
+
         return state
     end
 
