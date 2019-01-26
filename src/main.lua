@@ -47,6 +47,7 @@ function love.draw()
     current_state.draw()
 
     if hud_show_friendship then
+        love.graphics.setColor(1, 1, 1)
         love.graphics.setFont(R.fonts.hud)
         love.graphics.print("Friends: " .. objective_friends_count, 16, 4)
     end
