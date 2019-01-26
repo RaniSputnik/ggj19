@@ -80,6 +80,10 @@ function love.load()
     }
 
     local bertrand = character.create("Bertrand", 2, 2, BLUE, RIGHT)
+    bertrand.greeting = M.good_day
+    bertrand.responses = {
+        [M.hi_finally_meet_you] = speak.say(M.silence)
+    }
 
     world.player = player
     world.characters = { player, alice, bertrand }

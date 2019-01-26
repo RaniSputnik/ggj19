@@ -19,4 +19,6 @@ return {
     fine_suit_yourself = "Fine, suit yourself",
     oh_so_you_do_speak = "Oh, so you do speak!",
     for_goodness_sake = "For goodness sake, you're infuriating",
+
+    good_day = "Good day",
 }
