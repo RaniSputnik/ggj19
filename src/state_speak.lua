@@ -20,6 +20,12 @@ return function(params)
     }
 
     state.update = function(input, dt)
+        -- TODO: This is so fricken hacky, definitely
+        -- got some structural issues here
+        if state.full_speech == '' then
+            return state_move()
+        end
+
         local total_speech_length = string.len(state.full_speech)
 
         -- We have already shown all of the text

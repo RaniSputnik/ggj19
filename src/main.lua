@@ -7,6 +7,7 @@ knowledge = require('knowledge')
 
 state_speak = require('state_speak')
 state_respond = require('state_respond')
+state_move = require('state_move')
 
 GAME_SPEED = 10
 LAYOUT_HEARD_X = 32
@@ -24,6 +25,9 @@ function love.load()
         [M.i_dont_think_so] = speak.say_friendship(),
         [M.i_dont_know_anyone] = speak.say_friendship(),
         [M.i_want_to_stay] = speak.say(M.q_it_might_be_fun),
+        [M.groan] = speak.end_conversation(),
+        [M.fine] = speak.end_conversation(),
+        [M.your_right] = speak.end_conversation(),
     }
 
     input = require('input')()
