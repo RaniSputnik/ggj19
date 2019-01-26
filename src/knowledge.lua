@@ -1,5 +1,8 @@
 local m = {}
 
+local connections = {}
+local greetings = {}
+
 local safeDialog = {
     [M.maybe_youll_make_a_friend] = {
         M.groan,
@@ -17,6 +20,11 @@ local safeDialog = {
     },
 }
 
+m.load = function()
+    connections = {}
+    greetings = {}
+end
+
 m.safe = function(heard)
     print('[knowledge.safe] ' .. heard)
     local res = safeDialog[heard]
@@ -27,8 +35,33 @@ m.safe = function(heard)
     end
 end
 
+m.learn = function(heard, in_response_to)
+    if in_response_to == nil or in_response_to == '' then
+        print('[knowledge] Learnt a new greeting: ' .. heard)
+        table.insert(greetings, heard)
+    else
+        if connections[in_response_to] == nil then
+            connections[in_response_to] = {}
+        end
+        print('[knowledge] Learnt a response: \'' .. heard .. '\' ')
+        table.insert(connections[in_response_to], heard)
+    end
+end
+
 m.recall = function(heard)
-    return { M.silence }
+    if heard == nil or heard == '' then
+        if #greetings > 0 then
+            return greetings
+        else
+            return { M.silence }
+        end
+    end
+
+    if connections[heard] ~= nil then
+        return connections[heard]
+    else
+        return { M.silence }
+    end
 end
 
 return m

@@ -12,6 +12,10 @@ return function(params)
         end
     end
 
+    if params.speaker ~= dana then
+        knowledge.learn(speech, params.heard)
+    end
+
     local state = {
         speaker = params.speaker,
         full_speech = speech,
