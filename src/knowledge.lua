@@ -43,7 +43,7 @@ m.learn = function(heard, in_response_to)
         if connections[in_response_to] == nil then
             connections[in_response_to] = {}
         end
-        print('[knowledge] Learnt a response: \'' .. heard .. '\' ')
+        print('[knowledge] Learnt a response to \'' .. in_response_to .. '\': \'' .. heard .. '\' ')
         table.insert(connections[in_response_to], heard)
     end
 end

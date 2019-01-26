@@ -59,8 +59,13 @@ function love.load()
 
     local alice = character.create("Alice", 8, 11, GREEN, DOWN)
 
+    local alice_fed_up = function()
+        alice.responses[M.silence] = speak.say(M.for_goodness_sake, END_CONVERSATION)
+    end
+
     local alice_last_chance = function()
         alice.responses[M.silence] = speak.say(M.fine_suit_yourself, END_CONVERSATION)
+        alice.responses[M.hi_finally_meet_you] = speak.say(M.oh_so_you_do_speak, alice_fed_up)
     end
 
     alice.greeting = M.hi_finally_meet_you
