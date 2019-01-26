@@ -5,7 +5,7 @@ R.fonts = {}
 
 -- Game constants
 
-GAME_SPEED = 10
+GAME_SPEED = 20
 LAYOUT_HEARD_X = 32
 LAYOUT_HEARD_Y = 200
 

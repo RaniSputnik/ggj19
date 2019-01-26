@@ -89,10 +89,10 @@ m.create = function(name, gridx, gridy, color, dir)
                 self.y = goal_y
                 world.map:release(self, self.pos[1], self.pos[2])
                 self.pos = {self.goal[1], self.goal[2]}
+            else
+                self.x = self.x + clamp(dx, speed, -speed)
+                self.y = self.y + clamp(dy, speed, -speed)
             end
-
-            self.x = self.x + clamp(dx, speed, -speed)
-            self.y = self.y + clamp(dy, speed, -speed)
         end
     end
 
