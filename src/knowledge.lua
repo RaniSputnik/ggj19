@@ -1,3 +1,17 @@
+-- HELPERS
+
+local function has_value (tab, val)
+    for index, value in ipairs(tab) do
+        if value == val then
+            return true
+        end
+    end
+
+    return false
+end
+
+-- MODULE
+
 local m = {}
 
 local connections = {}
@@ -41,10 +55,14 @@ m.learn = function(heard, in_response_to)
         table.insert(greetings, heard)
     else
         if connections[in_response_to] == nil then
-            connections[in_response_to] = {}
+            print('[knowledge] Learnt to respond to \'' .. in_response_to .. '\' with \'' .. heard .. '\' ')
+            connections[in_response_to] = { heard }
+        elseif not has_value(connections[in_response_to], heard) then
+            print('[knowledge] Learnt to respond to \'' .. in_response_to .. '\' with \'' .. heard .. '\' ')
+            table.insert(connections[in_response_to], heard)
+        else
+            print('[knowledge] Already knew how to respond to \'' .. in_response_to .. '\' with \'' .. heard .. '\' ')
         end
-        print('[knowledge] Learnt a response to \'' .. in_response_to .. '\': \'' .. heard .. '\' ')
-        table.insert(connections[in_response_to], heard)
     end
 end
 
