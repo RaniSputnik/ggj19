@@ -1,13 +1,21 @@
 -- The respond state is the opportunity for the player
 -- to give a response to something an NPC said.
 
-local knowledge = require('knowledge')
+local function getResponses(other, heard)
+    if other == dana then
+        -- If we are speaking to dana, we can speak freely
+        return knowledge.safe(heard)
+    else
+        -- Otherwise we must learn from others
+        return knowledge.recall(heard)
+    end
+end
 
 return function(params)
     local state = {
         other = params.other,
         heard = params.heard,
-        responses = knowledge.recall(params.heard),
+        responses = getResponses(params.other, params.heard),
         selection = 1
     }
 

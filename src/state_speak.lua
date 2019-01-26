@@ -2,12 +2,19 @@
 
 return function(params)
     if params.heard ~= nil then
-        params.speech = params.speaker[params.heard]
+        local res = params.speaker[params.heard]
+        if res ~= nil then
+            params.speech, params.event = res()
+        else
+            params.speech = M.silence
+            params.event = nil
+        end
     end
 
     local state = {
         speaker = params.speaker,
         full_speech = params.speech,
+        event = params.event,
         current_speech = "",
         current_pos = 0
     }
@@ -17,6 +24,9 @@ return function(params)
 
         -- We have already shown all of the text
         if state.current_pos >= total_speech_length then
+            if state.event ~= nil then
+                state.event()
+            end
             return state_respond({ other = state.speaker, heard = state.full_speech })
         -- The player has used the 'continue' button
         elseif input.continue_pressed then
