@@ -1,5 +1,12 @@
+-- The speak state is where a NPC reads their dialog
+
 return function(params)
+    if params.heard ~= nil then
+        params.speech = params.speaker[params.heard]
+    end
+
     local state = {
+        speaker = params.speaker,
         full_speech = params.speech,
         current_speech = "",
         current_pos = 0
@@ -10,7 +17,7 @@ return function(params)
 
         -- We have already shown all of the text
         if state.current_pos >= total_speech_length then
-            return state_respond({ heard = state.full_speech })
+            return state_respond({ other = state.speaker, heard = state.full_speech })
         -- The player has used the 'continue' button
         elseif input.continue_pressed then
             state.current_pos = total_speech_length

@@ -1,7 +1,11 @@
+-- The respond state is the opportunity for the player
+-- to give a response to something an NPC said.
+
 local knowledge = require('knowledge')
 
 return function(params)
     local state = {
+        other = params.other,
         heard = params.heard,
         responses = knowledge.recall(params.heard),
         selection = 1
@@ -14,7 +18,10 @@ return function(params)
 
     state.update = function(input, dt)
         if input.continue_pressed then
-            return state_speak({ speech = 'Well then, that is quite something' })
+            return state_speak({
+                speaker = state.other,
+                heard = state.responses[state.selection]
+            })
         end
 
         local net = (input.down_pressed and 1 or 0) - (input.up_pressed and 1 or 0)

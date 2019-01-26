@@ -11,8 +11,16 @@ LAYOUT_HEARD_Y = 200
 function love.load()
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")
 
+
+    guests = {}
+    guests.thomas = {
+        ['Nice to meet you too'] = 'What\'s your name?',
+        ['You seem like a wanker'] = 'I say! There\'s no need for that kind of language!',
+        ['Sorry, are you talking to me?'] = 'Erm, yes I am.'
+    }
+
     input = require('input')()
-    current_state = state_speak({ speech = 'Hello, nice to meet you!' })
+    current_state = state_speak({ speaker = guests.thomas, speech = 'Hello, nice to meet you!' })
 end
 
 function love.update(dt)
