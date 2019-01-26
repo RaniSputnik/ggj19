@@ -6,6 +6,7 @@ R.fonts = {}
 M = require('msg')
 speak = require('speak')
 knowledge = require('knowledge')
+map = require('map')
 
 state_speak = require('state_speak')
 state_respond = require('state_respond')
