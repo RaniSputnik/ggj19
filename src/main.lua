@@ -55,6 +55,10 @@ function love.load()
 
     -- Create the world
 
+    -- World map is needed in characters
+    -- Gross, we could probably make that better
+    world = { map = map.create() }
+
     local player = character.create("Player", 8, 15, RED, UP)
 
     local alice = character.create("Alice", 8, 11, GREEN, DOWN)
@@ -75,11 +79,9 @@ function love.load()
 
     local bertrand = character.create("Bertrand", 2, 2, BLUE, RIGHT)
 
-    world = {
-        player = player,
-        characters = { player, alice, bertrand },
-        triggers = { trigger.create(alice, 5, 13, 11, 13) }
-    }
+    world.player = player
+    world.characters = { player, alice, bertrand }
+    world.triggers = { trigger.create(alice, 5, 13, 11, 13) }
 
     function world:any_triggers()
         for i = 1, #self.triggers do
@@ -90,8 +92,8 @@ function love.load()
     end
 
     function world:draw()
-        local map_width = map:getWidth()
-        local map_height = map:getHeight()
+        local map_width = self.map:getWidth()
+        local map_height = self.map:getHeight()
         local left = (love.graphics.getWidth() - map_width) / 2
         local top = (love.graphics.getHeight() - map_height) / 2
 
@@ -99,7 +101,7 @@ function love.load()
         love.graphics.translate(left, top)
 
         love.graphics.setColor(WHITE)
-        map:draw()
+        self.map:draw()
         for i = 1, #self.characters do
             self.characters[i]:draw()
         end

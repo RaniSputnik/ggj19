@@ -24,7 +24,7 @@ local dir_offset = {
 }
 
 m.create = function(name, gridx, gridy, color, dir)
-    local xx, yy = map:getPos(gridx, gridy)
+    local xx, yy = world.map:getPos(gridx, gridy)
 
     local c = {
         name = name,
@@ -37,7 +37,7 @@ m.create = function(name, gridx, gridy, color, dir)
         direction = dir == nil and RIGHT or dir
     }
 
-    map:occupy(c, gridx, gridy)
+    world.map:occupy(c, gridx, gridy)
 
     function c:update(input, dt)
         if input == nil then input = no_input end
@@ -55,10 +55,10 @@ m.create = function(name, gridx, gridy, color, dir)
                     self.direction = LEFT
                 end
                 local gx, gy = self.pos[1] + hor, self.pos[2]
-                if map:isFree(gx, gy) then
+                if world.map:isFree(gx, gy) then
                     self.moving = true
                     self.goal = {gx, gy}
-                    map:occupy(self, gx, gy)
+                    world.map:occupy(self, gx, gy)
                 end
             end
             if ver ~= 0 then
@@ -68,18 +68,18 @@ m.create = function(name, gridx, gridy, color, dir)
                     self.direction = UP
                 end
                 local gx, gy = self.pos[1], self.pos[2] + ver
-                if map:isFree(gx, gy) then
+                if world.map:isFree(gx, gy) then
                     self.moving = true
                     self.goal = {gx, gy}
-                    map:occupy(self, gx, gy)
+                    world.map:occupy(self, gx, gy)
                 end
             end
         end
 
         if self.moving then
             local speed = dt * 10
-            local goal_x = (self.goal[1]-1) * map.cell_width
-            local goal_y = (self.goal[2]-1) * map.cell_height
+            local goal_x = (self.goal[1]-1) * world.map.cell_width
+            local goal_y = (self.goal[2]-1) * world.map.cell_height
             local dx = goal_x - self.x
             local dy = goal_y - self.y
 
@@ -87,7 +87,7 @@ m.create = function(name, gridx, gridy, color, dir)
                 self.moving = false
                 self.x = goal_x
                 self.y = goal_y
-                map:release(self, self.pos[1], self.pos[2])
+                world.map:release(self, self.pos[1], self.pos[2])
                 self.pos = {self.goal[1], self.goal[2]}
             end
 
@@ -120,7 +120,7 @@ m.create = function(name, gridx, gridy, color, dir)
         if self.moving then return nil end
         local o = dir_offset[self.direction]
         gx, gy = self.pos[1] + o[1], self.pos[2] + o[2]
-        return map:occupant(gx, gy)
+        return world.map:occupant(gx, gy)
     end
 
     return c
