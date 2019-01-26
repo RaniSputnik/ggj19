@@ -60,7 +60,7 @@ function love.load()
     -- Gross, we could probably make that better
     world = { map = map.create() }
 
-    local player = character.create("Player", 8, 15, RED, UP)
+    local player = character.create("Player", 5, 14, RED, RIGHT)
 
     local alice = character.create("Alice", 8, 11, GREEN, DOWN)
 

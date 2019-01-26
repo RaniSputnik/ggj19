@@ -4,9 +4,16 @@
 return function(params)
     local state = {
         target = params.target,
+        wait_before_move = 0,
+        wait_before_talk = 0,
     }
 
     state.update = function(input, dt)
+        state.wait_before_move = state.wait_before_move + dt
+        if state.wait_before_move < 5 then
+            return state
+        end
+
         local px, py = world.player:getPos()
         local tx, ty = state.target:getPos()
 
@@ -28,7 +35,10 @@ return function(params)
 
         state.target:update(synthesized_input, dt)
         if state.target:facing() == world.player then
-            return state_speak({ speaker = state.target, speech = 'TODO: Ha! I approached you!' })
+            state.wait_before_talk = state.wait_before_talk + dt
+            if state.wait_before_talk > 15 then
+                return state_speak({ speaker = state.target })
+            end
         end
 
         return state
