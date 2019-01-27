@@ -46,8 +46,8 @@ function love.load()
 
     knowledge.load()
 
-    dana = {
-        name = "Dana",
+    partner = {
+        name = "Kian",
         greeting = M.q_looking_forward_to_party,
         responses = {
             [M.not_really] = speak.say_friendship(),
@@ -120,7 +120,7 @@ function love.load()
     -- Setup input and state
 
     input = require('input')()
-    current_state = state_speak({ speaker = dana })
+    current_state = state_speak({ speaker = partner })
 end
 
 function love.update(dt)

@@ -12,7 +12,7 @@ return function(params)
         end
     end
 
-    if params.speaker ~= dana then
+    if params.speaker ~= partner then
         knowledge.learn(speech, params.heard)
     end
 
@@ -64,7 +64,7 @@ return function(params)
     state.draw = function()
         love.graphics.setColor(WHITE)
 
-        local font = state.speaker == dana and R.fonts.speech_dana or R.fonts.speech
+        local font = state.speaker == partner and R.fonts.speech_dana or R.fonts.speech
         local text = state.speaker.name .. ": " .. state.current_speech
         love.graphics.setFont(font)
         love.graphics.print(text, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)

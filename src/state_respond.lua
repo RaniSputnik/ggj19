@@ -2,8 +2,8 @@
 -- to give a response to something an NPC said.
 
 local function getResponses(other, heard)
-    if other == dana then
-        -- If we are speaking to dana, we can speak freely
+    if other == partner then
+        -- If we are speaking to partner, we can speak freely
         return knowledge.safe(heard)
     else
         -- Otherwise we must learn from others
@@ -57,7 +57,7 @@ return function(params)
         love.graphics.setColor(WHITE)
 
         if state.heard ~= '' then
-            local font = state.other == dana and R.fonts.speech_dana or R.fonts.speech
+            local font = state.other == partner and R.fonts.speech_dana or R.fonts.speech
             local text = state.other.name .. ": " .. state.heard
             love.graphics.setFont(font)
             love.graphics.print(text, LAYOUT_HEARD_X, LAYOUT_HEARD_Y)
