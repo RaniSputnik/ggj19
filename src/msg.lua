@@ -1,5 +1,5 @@
 M = {
-    silence = "[Awkward silence]",
+    silence = "[Silence]",
 
     -- Speaking with Dana
     not_really = "Not really",
