@@ -50,9 +50,18 @@ m.safe = function(heard)
 end
 
 m.learn = function(heard, in_response_to)
+    if heard == M.silence then
+        print('[knowledge] You can not learn [Awkward Silence]')
+        return
+    end
+
     if in_response_to == nil or in_response_to == '' then
-        print('[knowledge] Learnt a new greeting: ' .. heard)
-        table.insert(greetings, heard)
+        if not has_value(greetings, heard) then
+            print('[knowledge] Learnt a new greeting: ' .. heard)
+            table.insert(greetings, heard)
+        else
+            print('[knowledge] Already knew the greeting: ' .. heard)
+        end
     else
         if connections[in_response_to] == nil then
             print('[knowledge] Learnt to respond to \'' .. in_response_to .. '\' with \'' .. heard .. '\' ')
