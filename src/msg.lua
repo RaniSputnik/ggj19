@@ -15,11 +15,12 @@ M = {
 
     -- Possible knowledge
     hi_finally_meet_you = "Hi, so nice to finally meet you.",
+    nice_to_meet_you_too = "Nice to meet you too!",
     erm_hello_do_you_speak = "Erm, hello? Do you speak?",
     fine_suit_yourself = "Fine, suit yourself",
     oh_so_you_do_speak = "Oh, so you do speak!",
     for_goodness_sake = "For goodness sake, you're infuriating",
-
+    yes_surprised = "Why yes! Are you surprised?",
     good_day = "Good day",
 }
 

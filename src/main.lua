@@ -15,6 +15,7 @@ WHITE = {208/255,227/255,244/255}
 OFF_WHITE = {195/255, 213/255, 229/255}
 GREEN_1 = {80/255,111/255,84/255}
 GREEN_2 = {45/255,84/255,50/255}
+GREEN_3 = {60/255,90/255,65/255}
 BLUE = {88/255,143/255,183/255}
 BLACK = {26/255,29/255,2/255}
 
@@ -87,9 +88,19 @@ function love.load()
         [M.hi_finally_meet_you] = speak.say(M.silence)
     }
 
+    local amelia = character.create("Amelia", 4, 3, GREEN_3, LEFT)
+    amelia.greeting = M.hi_finally_meet_you
+    amelia.responses = {
+        [M.hi_finally_meet_you] = speak.say(M.nice_to_meet_you_too),
+        [M.oh_so_you_do_speak] = speak.say(M.yes_surprised),
+    }
+
     world.player = player
-    world.characters = { player, alice, bertrand }
-    world.triggers = { trigger.create(alice, 5, 13, 11, 13) }
+    world.characters = { player, alice, bertrand, amelia }
+    world.triggers = {
+        trigger.create(alice, 5, 13, 11, 13),
+        trigger.create(amelia, 6, 2, 6, 3),
+    }
 
     function world:any_triggers()
         for i = 1, #self.triggers do
