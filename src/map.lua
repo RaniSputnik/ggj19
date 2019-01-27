@@ -86,9 +86,10 @@ m.create = function()
                 local xx, yy = self:getPos(gx, gy)
                 local i = self:index(gx, gy)
                 if self.tiles[i] > 0 then
-                    local draw_mode = "line"
-                    if self.occupants[i] ~= nil then draw_mode = "fill" end
-                    love.graphics.rectangle(draw_mode, xx, yy, self.cell_width, self.cell_height)
+                    love.graphics.setColor(OFF_WHITE)
+                    love.graphics.rectangle("fill", xx, yy, self.cell_width, self.cell_height)
+                    love.graphics.setColor(WHITE)
+                    love.graphics.rectangle("line", xx, yy, self.cell_width, self.cell_height)
                 end
             end
         end

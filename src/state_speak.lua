@@ -62,6 +62,8 @@ return function(params)
     end
 
     state.draw = function()
+        love.graphics.setColor(WHITE)
+
         local font = state.speaker == dana and R.fonts.speech_dana or R.fonts.speech
         local text = state.speaker.name .. ": " .. state.current_speech
         love.graphics.setFont(font)

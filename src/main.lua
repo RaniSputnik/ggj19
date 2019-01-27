@@ -11,11 +11,12 @@ LAYOUT_HEARD_Y = 200
 
 -- Colours
 
-WHITE = {1,1,1}
-RED = {1,0,0}
-GREEN = {0,1,0}
-BLUE = {0,0,1}
-BLACK = {0,0,0}
+WHITE = {208/255,227/255,244/255}
+OFF_WHITE = {195/255, 213/255, 229/255}
+GREEN_1 = {80/255,111/255,84/255}
+GREEN_2 = {45/255,84/255,50/255}
+BLUE = {88/255,143/255,183/255}
+BLACK = {26/255,29/255,2/255}
 
 -- Load features
 
@@ -34,6 +35,8 @@ state_move = require('state_move')
 state_approached = require('state_approached')
 
 function love.load()
+    love.graphics.setBackgroundColor(BLACK)
+
     R.fonts.speech = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 32, "normal")
     R.fonts.speech_dana = love.graphics.newFont('assets/fonts/GentiumPlus-I.ttf', 32, "normal")
     R.fonts.hud = love.graphics.newFont('assets/fonts/GentiumPlus-R.ttf', 18, "light")
@@ -60,9 +63,9 @@ function love.load()
     -- Gross, we could probably make that better
     world = { map = map.create() }
 
-    local player = character.create("Player", 5, 14, RED, RIGHT)
+    local player = character.create("Player", 5, 14, BLUE, RIGHT)
 
-    local alice = character.create("Alice", 8, 11, GREEN, DOWN)
+    local alice = character.create("Alice", 8, 11, GREEN_1, DOWN)
 
     local alice_fed_up = function()
         alice.responses[M.silence] = speak.say(M.for_goodness_sake)
@@ -78,7 +81,7 @@ function love.load()
         [M.silence] = speak.say(M.erm_hello_do_you_speak, alice_last_chance)
     }
 
-    local bertrand = character.create("Bertrand", 2, 2, BLUE, RIGHT)
+    local bertrand = character.create("Bertrand", 2, 2, GREEN_2, RIGHT)
     bertrand.greeting = M.good_day
     bertrand.responses = {
         [M.hi_finally_meet_you] = speak.say(M.silence)
